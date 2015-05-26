@@ -1,0 +1,1 @@
+ALTER TABLE apns_report ADD IF NOT EXISTS PARTITION (year='${stats_year}', month='${stats_month}', day='${stats_day}') LOCATION '${INPUT}';

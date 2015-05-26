@@ -1,0 +1,136 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<coordinator-app name="retention-stats" frequency="${coord:days(1)}" start="${start}" end="${end}"
+                 timezone="${tz}"
+                 xmlns="uri:oozie:coordinator:0.2">
+    <action>
+        <workflow>
+            <app-path>${workflowAppUri}</app-path>
+            <configuration>
+                <property>
+                    <name>jobTracker</name>
+                    <value>${jobTracker}</value>
+                </property>
+                <property>
+                    <name>nameNode</name>
+                    <value>${nameNode}</value>
+                </property>
+                <property>
+                    <name>queueName</name>
+                    <value>${queueName}</value>
+                </property>
+                <property>
+                    <name>nominalTime</name>
+                    <value>${coord:nominalTime()}</value>
+                </property>
+                <property>
+                    <name>statsDate</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-1,'DAY'), 'yyyyMMdd')}</value>
+                </property>
+                <property>
+                    <name>rate1</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-2,'DAY'), 'yyyyMM')}</value>
+                </property>
+                <property>
+                    <name>rateday1</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-2,'DAY'), 'd')}</value>
+                </property>
+                <property>
+                    <name>rate2</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-3,'DAY'), 'yyyyMM')}</value>
+                </property>
+                <property>
+                    <name>rateday2</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-3,'DAY'), 'd')}</value>
+                </property>
+                <property>
+                    <name>rate3</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-4,'DAY'), 'yyyyMM')}</value>
+                </property>
+                <property>
+                    <name>rateday3</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-4,'DAY'), 'd')}</value>
+                </property>
+                <property>
+                    <name>rate4</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-5,'DAY'), 'yyyyMM')}</value>
+                </property>
+                <property>
+                    <name>rateday4</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-5,'DAY'), 'd')}</value>
+                </property>
+                <property>
+                    <name>rate5</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-6,'DAY'), 'yyyyMM')}</value>
+                </property>
+                <property>
+                    <name>rateday5</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-6,'DAY'), 'd')}</value>
+                </property>
+                <property>
+                    <name>rate6</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-7,'DAY'), 'yyyyMM')}</value>
+                </property>
+                <property>
+                    <name>rateday6</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-7,'DAY'), 'd')}</value>
+                </property>
+                <property>
+                    <name>rate7</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-8,'DAY'), 'yyyyMM')}</value>
+                </property>
+                <property>
+                    <name>rateday7</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-8,'DAY'), 'd')}</value>
+                </property>
+                <property>
+                    <name>rate14</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-15,'DAY'), 'yyyyMM')}</value>
+                </property>
+                <property>
+                    <name>rateday14</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-15,'DAY'), 'd')}</value>
+                </property>
+                <property>
+                    <name>rate30</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-31,'DAY'), 'yyyyMM')}</value>
+                </property>
+                <property>
+                    <name>rateday30</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-31,'DAY'), 'd')}</value>
+                </property>
+                <property>
+                    <name>statsYear</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-1,'DAY'), 'yyyy')}</value>
+                </property>
+                <property>
+                    <name>statsMonth</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-1,'DAY'), 'MM')}</value>
+                </property>
+                <property>
+                    <name>statsDay</name>
+                    <value>${coord:formatTime(coord:dateOffset(coord:nominalTime(),-1,'DAY'), 'dd')}</value>
+                </property>
+                <property>
+                    <name>statsHour</name>
+                    <value>${coord:formatTime(coord:nominalTime(), 'HH')}</value>
+                </property>
+            </configuration>
+        </workflow>
+    </action>
+</coordinator-app>

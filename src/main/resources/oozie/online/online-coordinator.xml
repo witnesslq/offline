@@ -1,0 +1,79 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<coordinator-app name="user_online-hive-coord" frequency="${coord:hours(1)}" start="${start}" end="${end}" timezone="${tz}"
+                 xmlns="uri:oozie:coordinator:0.2">
+
+	<datasets>
+		<dataset name="userOnlineInput" frequency="${coord:hours(1)}" initial-instance="${datasetinitialinstance}"
+			timezone="${tz}">
+			<uri-template>${datasetURI}/${YEAR}/${MONTH}/${DAY}/${YEAR}${MONTH}${DAY}${HOUR}</uri-template>
+			<done-flag></done-flag>
+		</dataset>
+
+	</datasets>
+    <input-events>
+		<data-in name="coord-online-input" dataset="userOnlineInput">
+			<start-instance>${coord:current(0)}</start-instance>
+			<end-instance>${coord:current(0)}</end-instance>
+		</data-in>
+	</input-events>
+
+     <action>
+        <workflow>
+            <app-path>${workflowAppUri}</app-path>
+            <configuration>
+                <property>
+                    <name>jobTracker</name>
+                    <value>${jobTracker}</value>
+                </property>
+                <property>
+                    <name>nameNode</name>
+                    <value>${nameNode}</value>
+                </property>
+                <property>
+                    <name>queueName</name>
+                    <value>${queueName}</value>
+                </property>
+                <property>
+                    <name>nominalTime</name>
+                    <value>${coord:nominalTime()}</value>
+                </property>
+				<property>
+					<name>statsDate</name>
+					<value>${coord:formatTime(coord:nominalTime(), 'yyyyMMddHH')}</value>
+				</property>
+				<property>
+					<name>statsYear</name>
+					<value>${coord:formatTime(coord:nominalTime(), 'yyyy')}</value>
+				</property>
+				<property>
+					<name>statsMonth</name>
+					<value>${coord:formatTime(coord:nominalTime(), 'MM')}</value>
+				</property>
+	        	<property>
+					<name>statsDay</name>
+					<value>${coord:formatTime(coord:nominalTime(), 'dd')}</value>
+				</property>
+				<property>
+					<name>statsHour</name>
+					<value>${coord:formatTime(coord:nominalTime(), 'HH')}</value>
+				</property>
+            </configuration>
+        </workflow>
+    </action>
+</coordinator-app>

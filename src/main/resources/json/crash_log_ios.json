@@ -1,0 +1,46 @@
+{
+  "crashlogs": [
+    {
+      "networktype": "",
+      "message": "-[__NSDictionaryM objectAtIndex:]: unrecognized selector sent to instance 0x165090b0",
+      "versioncode": "3.52",
+      "crashtime": 1430876150,
+      "stacktrace": [
+        "0   CoreFoundation                      0x27c4f4b7 <redacted> + 150",
+        "1   libobjc.A.dylib                     0x35466c8b objc_exception_throw + 38",
+        "2   CoreFoundation                      0x27c548b9 <redacted> + 0",
+        "3   CoreFoundation                      0x27c527d7 <redacted> + 714",
+        "4   CoreFoundation                      0x27b84058 _CF_forwarding_prep_0 + 24",
+        "5   shMetro3.0                          0x0009196f shMetro3.0 + 129391",
+        "6   libdispatch.dylib                   0x359c67bb <redacted> + 10",
+        "7   libdispatch.dylib                   0x359cfdab <redacted> + 866",
+        "8   libdispatch.dylib                   0x359d0cd7 <redacted> + 94",
+        "9   libsystem_pthread.dylib             0x35b27e31 _pthread_wqthread + 668",
+        "10  libsystem_pthread.dylib             0x35b27b84 start_wqthread + 8"
+      ],
+      "versionname": "3.52",
+      "count": 1,
+      "device_info": {
+        "sdk_version": "1.8.1",
+        "app_versioncode": "3.52",
+        "type": "device_info",
+        "resolution": "640x1136",
+        "itime": 1430876150,
+        "os_version": "8.1.3",
+        "timezone": "+8",
+        "app_versionname": "3.52",
+        "Channel": "Publish channel",
+        "language": "zh-Hans",
+        "model": "iPhone7,2"
+      }
+    }
+  ],
+  "type": "crash_log",
+  "itime": 1430876153,
+  "platform": "i",
+  "uid": 1235723885,
+  "app_key": "b37426688493aaf5df9b14eb",
+  "sdk_ver": "1.8.1",
+  "http_report_ver": "v2",
+  "remote_ip": "140.207.23.245"
+}

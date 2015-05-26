@@ -1,0 +1,37 @@
+{
+    "type": "record",
+    "name": "CrashLog",
+    "namespace": "crash.avro",
+    "fields": [
+        {"name": "uid", "type": "long"},
+        {
+            "name": "crashlogs",
+            "type": {
+            	"type": "array",
+                "items": {
+                	"type": "record",
+                    "name": "CrashLogsRecord",
+                    "fields": [
+                    	{"name": "message", "type": "string"},
+                        {"name": "versioncode", "type": "string"},
+                        {"name": "networktype", "type": "string"},
+                        {"name": "count", "type": "int"},
+                        {"name": "stacktrace", "type": "string"},
+                        {"name": "versionname", "type": "string"},
+                        {"name": "crashtime", "type": "long"}
+                    ]
+                }
+            }
+        },
+        {"name": "platform","type": "string"},
+        {"name": "app_key","type": "string"},
+        {
+        	"name": "device_info",
+            "type": {
+            	"type": "map",
+                "values": "string"
+            }
+        },
+       	{"name" : "itime", "type": "int"}
+    ]
+}

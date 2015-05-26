@@ -1,0 +1,13 @@
+{
+    "type": "record",
+    "name": "CrashLogsRecord",
+    "fields": [
+        {"name": "message", "type": "string"},
+        {"name": "versioncode", "type": "string"},
+        {"name": "networktype", "type": "string"},
+        {"name": "count", "type": "int"},
+        {"name": "stacktrace", "type": "string"},
+        {"name": "versionname", "type": "string"},
+        {"name": "crashtime", "type": "long"}
+    ]
+}

@@ -1,0 +1,1 @@
+ALTER TABLE user_online_external ADD IF NOT EXISTS PARTITION (year='${stats_year}', month='${stats_month}', day='${stats_day}') LOCATION '${INPUT}';

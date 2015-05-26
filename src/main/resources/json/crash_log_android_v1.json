@@ -1,0 +1,35 @@
+{
+  "uid": 900428645,
+  "content": [
+    {
+      "type": "crash_log",
+      "crashlogs": [
+        {
+          "message": "java.lang.NullPointerException",
+          "versioncode": "34",
+          "networktype": "WIFI,",
+          "count": 6,
+          "stacktrace": "java.lang.NullPointerException\n\tat com.qooservice.QooApkDownloadService.a(Unknown Source)\n\tat com.qooservice.QooApkDownloadService.a(Unknown Source)\n\tat com.qooservice.d.run(Unknown Source)\n",
+          "versionname": "3.4",
+          "crashtime": 1426595936825
+        }
+      ],
+      "device_info": {
+        "timezone": "+8",
+        "model": "InFocus M320",
+        "app_versioncode": "40",
+        "cpu_info": "ARMv7 Processor rev 4 (v7l)",
+        "app_versionname": "3.7.1",
+        "sdk_version": "1.6.3",
+        "app_key": "c56e1a24235859270a39d733",
+        "resolution": "720*1280",
+        "language": "zh_TW",
+        "channel": "developer-default",
+        "os_version": "19"
+      },
+      "itime": 1429636282
+    }
+  ],
+  "platform": "a",
+  "app_key": "c56e1a24235859270a39d733"
+}

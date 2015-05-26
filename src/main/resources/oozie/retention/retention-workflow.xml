@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<workflow-app xmlns="uri:oozie:workflow:0.2" name="retention">
+    <start to="fork-stats"/>
+
+    <fork name="fork-stats">
+        <path start="stats-1-day-retention"/>
+        <path start="stats-2-day-retention"/>
+        <path start="stats-3-day-retention"/>
+        <path start="stats-4-day-retention"/>
+        <path start="stats-5-day-retention"/>
+        <path start="stats-6-day-retention"/>
+        <path start="stats-7-day-retention"/>
+        <path start="stats-14-day-retention"/>
+        <path start="stats-30-day-retention"/>
+    </fork>
+
+    <action name="stats-1-day-retention">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+            </prepare>
+            <job-xml>${nameNode}/user/developer/hive/hive-site.xml</job-xml>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+                <property>
+                    <name>oozie.hive.defaults</name>
+                    <value>${nameNode}/user/developer/hive/hive-site.xml</value>
+                </property>
+            </configuration>
+            <script>${nameNode}/user/developer/oozieRoot/stats/hive/retention.sql</script>
+            <param>stat_time=${statsDate}</param>
+            <param>year=${statsYear}</param>
+            <param>month=${statsMonth}</param>
+            <param>day=${statsDay}</param>
+            <param>ymonth=${rate1}</param>
+            <param>dd=${rateday1}</param>
+            <param>internal=1</param>
+        </hive>
+        <ok to="join-stats"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="stats-2-day-retention">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+            </prepare>
+            <job-xml>${nameNode}/user/developer/hive/hive-site.xml</job-xml>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+                <property>
+                    <name>oozie.hive.defaults</name>
+                    <value>${nameNode}/user/developer/hive/hive-site.xml</value>
+                </property>
+            </configuration>
+            <script>${nameNode}/user/developer/oozieRoot/stats/hive/retention.sql</script>
+            <param>stat_time=${statsDate}</param>
+            <param>year=${statsYear}</param>
+            <param>month=${statsMonth}</param>
+            <param>day=${statsDay}</param>
+            <param>ymonth=${rate2}</param>
+            <param>dd=${rateday2}</param>
+            <param>internal=2</param>
+        </hive>
+        <ok to="join-stats"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="stats-3-day-retention">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+            </prepare>
+            <job-xml>${nameNode}/user/developer/hive/hive-site.xml</job-xml>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+                <property>
+                    <name>oozie.hive.defaults</name>
+                    <value>${nameNode}/user/developer/hive/hive-site.xml</value>
+                </property>
+            </configuration>
+            <script>${nameNode}/user/developer/oozieRoot/stats/hive/retention.sql</script>
+            <param>stat_time=${statsDate}</param>
+            <param>year=${statsYear}</param>
+            <param>month=${statsMonth}</param>
+            <param>day=${statsDay}</param>
+            <param>ymonth=${rate3}</param>
+            <param>dd=${rateday3}</param>
+            <param>internal=3</param>
+        </hive>
+        <ok to="join-stats"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="stats-4-day-retention">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+            </prepare>
+            <job-xml>${nameNode}/user/developer/hive/hive-site.xml</job-xml>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+                <property>
+                    <name>oozie.hive.defaults</name>
+                    <value>${nameNode}/user/developer/hive/hive-site.xml</value>
+                </property>
+            </configuration>
+            <script>${nameNode}/user/developer/oozieRoot/stats/hive/retention.sql</script>
+            <param>stat_time=${statsDate}</param>
+            <param>year=${statsYear}</param>
+            <param>month=${statsMonth}</param>
+            <param>day=${statsDay}</param>
+            <param>ymonth=${rate4}</param>
+            <param>dd=${rateday4}</param>
+            <param>internal=4</param>
+        </hive>
+        <ok to="join-stats"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="stats-5-day-retention">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+            </prepare>
+            <job-xml>${nameNode}/user/developer/hive/hive-site.xml</job-xml>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+                <property>
+                    <name>oozie.hive.defaults</name>
+                    <value>${nameNode}/user/developer/hive/hive-site.xml</value>
+                </property>
+            </configuration>
+            <script>${nameNode}/user/developer/oozieRoot/stats/hive/retention.sql</script>
+            <param>stat_time=${statsDate}</param>
+            <param>year=${statsYear}</param>
+            <param>month=${statsMonth}</param>
+            <param>day=${statsDay}</param>
+            <param>ymonth=${rate5}</param>
+            <param>dd=${rateday5}</param>
+            <param>internal=5</param>
+        </hive>
+        <ok to="join-stats"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="stats-6-day-retention">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+            </prepare>
+            <job-xml>${nameNode}/user/developer/hive/hive-site.xml</job-xml>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+                <property>
+                    <name>oozie.hive.defaults</name>
+                    <value>${nameNode}/user/developer/hive/hive-site.xml</value>
+                </property>
+            </configuration>
+            <script>${nameNode}/user/developer/oozieRoot/stats/hive/retention.sql</script>
+            <param>stat_time=${statsDate}</param>
+            <param>year=${statsYear}</param>
+            <param>month=${statsMonth}</param>
+            <param>day=${statsDay}</param>
+            <param>ymonth=${rate6}</param>
+            <param>dd=${rateday6}</param>
+            <param>internal=6</param>
+        </hive>
+        <ok to="join-stats"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="stats-7-day-retention">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+            </prepare>
+            <job-xml>${nameNode}/user/developer/hive/hive-site.xml</job-xml>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+                <property>
+                    <name>oozie.hive.defaults</name>
+                    <value>${nameNode}/user/developer/hive/hive-site.xml</value>
+                </property>
+            </configuration>
+            <script>${nameNode}/user/developer/oozieRoot/stats/hive/retention.sql</script>
+            <param>stat_time=${statsDate}</param>
+            <param>year=${statsYear}</param>
+            <param>month=${statsMonth}</param>
+            <param>day=${statsDay}</param>
+            <param>ymonth=${rate7}</param>
+            <param>dd=${rateday7}</param>
+            <param>internal=7</param>
+        </hive>
+        <ok to="join-stats"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="stats-14-day-retention">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+            </prepare>
+            <job-xml>${nameNode}/user/developer/hive/hive-site.xml</job-xml>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+                <property>
+                    <name>oozie.hive.defaults</name>
+                    <value>${nameNode}/user/developer/hive/hive-site.xml</value>
+                </property>
+            </configuration>
+            <script>${nameNode}/user/developer/oozieRoot/stats/hive/retention.sql</script>
+            <param>stat_time=${statsDate}</param>
+            <param>year=${statsYear}</param>
+            <param>month=${statsMonth}</param>
+            <param>day=${statsDay}</param>
+            <param>ymonth=${rate14}</param>
+            <param>dd=${rateday14}</param>
+            <param>internal=14</param>
+        </hive>
+        <ok to="join-stats"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="stats-30-day-retention">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+            </prepare>
+            <job-xml>${nameNode}/user/developer/hive/hive-site.xml</job-xml>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+                <property>
+                    <name>oozie.hive.defaults</name>
+                    <value>${nameNode}/user/developer/hive/hive-site.xml</value>
+                </property>
+            </configuration>
+            <script>${nameNode}/user/developer/oozieRoot/stats/hive/retention.sql</script>
+            <param>stat_time=${statsDate}</param>
+            <param>year=${statsYear}</param>
+            <param>month=${statsMonth}</param>
+            <param>day=${statsDay}</param>
+            <param>ymonth=${rate30}</param>
+            <param>dd=${rateday30}</param>
+            <param>internal=30</param>
+        </hive>
+        <ok to="join-stats"/>
+        <error to="fail"/>
+    </action>
+
+    <join name="join-stats" to="import-to-mysql"/>
+
+    <fork name="import-to-mysql">
+        <path start="import-1-day-retention"/>
+        <path start="import-2-day-retention"/>
+        <path start="import-3-day-retention"/>
+        <path start="import-4-day-retention"/>
+        <path start="import-5-day-retention"/>
+        <path start="import-6-day-retention"/>
+        <path start="import-7-day-retention"/>
+        <path start="import-14-day-retention"/>
+        <path start="import-30-day-retention"/>
+    </fork>
+
+    <action name="import-1-day-retention">
+        <java>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+            </configuration>
+            <main-class>cn.jpush.stat.offline.v2.stats.RetentionStats</main-class>
+            <arg>${envFlag}</arg>
+            <arg>${statsDate}</arg>
+            <arg>retention</arg>
+            <arg>day</arg>
+            <arg>1</arg>
+        </java>
+        <ok to="join-import"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="import-2-day-retention">
+        <java>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+            </configuration>
+            <main-class>cn.jpush.stat.offline.v2.stats.RetentionStats</main-class>
+            <arg>${envFlag}</arg>
+            <arg>${statsDate}</arg>
+            <arg>retention</arg>
+            <arg>day</arg>
+            <arg>2</arg>
+        </java>
+        <ok to="join-import"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="import-3-day-retention">
+        <java>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+            </configuration>
+            <main-class>cn.jpush.stat.offline.v2.stats.RetentionStats</main-class>
+            <arg>${envFlag}</arg>
+            <arg>${statsDate}</arg>
+            <arg>retention</arg>
+            <arg>day</arg>
+            <arg>3</arg>
+        </java>
+        <ok to="join-import"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="import-4-day-retention">
+        <java>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+            </configuration>
+            <main-class>cn.jpush.stat.offline.v2.stats.RetentionStats</main-class>
+            <arg>${envFlag}</arg>
+            <arg>${statsDate}</arg>
+            <arg>retention</arg>
+            <arg>day</arg>
+            <arg>4</arg>
+        </java>
+        <ok to="join-import"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="import-5-day-retention">
+        <java>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+            </configuration>
+            <main-class>cn.jpush.stat.offline.v2.stats.RetentionStats</main-class>
+            <arg>${envFlag}</arg>
+            <arg>${statsDate}</arg>
+            <arg>retention</arg>
+            <arg>day</arg>
+            <arg>5</arg>
+        </java>
+        <ok to="join-import"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="import-6-day-retention">
+        <java>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+            </configuration>
+            <main-class>cn.jpush.stat.offline.v2.stats.RetentionStats</main-class>
+            <arg>${envFlag}</arg>
+            <arg>${statsDate}</arg>
+            <arg>retention</arg>
+            <arg>day</arg>
+            <arg>6</arg>
+        </java>
+        <ok to="join-import"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="import-7-day-retention">
+        <java>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+            </configuration>
+            <main-class>cn.jpush.stat.offline.v2.stats.RetentionStats</main-class>
+            <arg>${envFlag}</arg>
+            <arg>${statsDate}</arg>
+            <arg>retention</arg>
+            <arg>day</arg>
+            <arg>7</arg>
+        </java>
+        <ok to="join-import"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="import-14-day-retention">
+        <java>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+            </configuration>
+            <main-class>cn.jpush.stat.offline.v2.stats.RetentionStats</main-class>
+            <arg>${envFlag}</arg>
+            <arg>${statsDate}</arg>
+            <arg>retention</arg>
+            <arg>day</arg>
+            <arg>14</arg>
+        </java>
+        <ok to="join-import"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="import-30-day-retention">
+        <java>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+            </configuration>
+            <main-class>cn.jpush.stat.offline.v2.stats.RetentionStats</main-class>
+            <arg>${envFlag}</arg>
+            <arg>${statsDate}</arg>
+            <arg>retention</arg>
+            <arg>day</arg>
+            <arg>30</arg>
+        </java>
+        <ok to="join-import"/>
+        <error to="fail"/>
+    </action>
+
+    <join name="join-import" to="end"/>
+    <kill name="fail">
+        <message>Hive failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+    <end name="end"/>
+</workflow-app>
