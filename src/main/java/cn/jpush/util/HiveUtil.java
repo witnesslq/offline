@@ -4,7 +4,10 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import cn.jpush.tool.Alarm;
 import org.apache.hive.jdbc.HiveStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +30,11 @@ public class HiveUtil {
     	}
 		catch(Exception e)
     	{
-    		logger.error("HiveUtil.executeQuery:error = "+ e.getMessage());	
-    	}finally{
+    		logger.error("HiveUtil.executeQuery:error = "+ e.getMessage());
+			Alarm.alarm(63, String.format("%s HiveUtil.executeQuery:error = %s" ,
+					new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
+					e.getMessage()));
+		}finally{
     		DBHelper.closeHiveConn(conn);
     	}
     	logger.debug("HiveUtil.executeQuery:all time =" + (System.currentTimeMillis() - startTime));
@@ -46,7 +52,10 @@ public class HiveUtil {
             res = stmt.executeUpdate(sql);
     	}catch(Exception e)
     	{
-    		logger.error("HiveUtil.executeUpdate:error = "+ e.getMessage());	
+    		logger.error("HiveUtil.executeUpdate:error = "+ e.getMessage());
+			Alarm.alarm(63, String.format("%s HiveUtil.executeUpdate:error = %s" ,
+					new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
+					e.getMessage()));
     	}finally{
     		DBHelper.closeHiveConn(conn);
     	}
@@ -65,8 +74,11 @@ public class HiveUtil {
     	}catch(Exception e)
     	{
     		logger.error("HiveUtil.execute:error = "+ e.getMessage());
-    		e.printStackTrace();
-    		throw new Exception(e); 
+			Alarm.alarm(63, String.format("%s HiveUtil.execute:error = %s" ,
+					new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
+					e.getMessage()));
+			e.printStackTrace();
+			throw new Exception(e);
     	}finally{
     		DBHelper.closeHiveConn(conn);
     	}

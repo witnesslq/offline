@@ -15,6 +15,14 @@ import scala.Tuple3;
  */
 public class MsgRecvStatsSparkDemo {
 
+
+    static class MsgRecvWithApp implements Function<String, String>{
+        @Override
+        public String call(String s) throws Exception {
+            return null;
+        }
+    }
+
     public static void main(String[] args) {
         String inputHdfsPath = args[0];
         SparkConf conf = new SparkConf();
@@ -33,12 +41,7 @@ public class MsgRecvStatsSparkDemo {
 
         JavaPairRDD<String, String> pairsUnique = msgRecvs.mapToPair(keyData).distinct(); // <uid, value>
 
-        pairsUnique.flatMap(new FlatMapFunction<Tuple2<String,String>, Object>() {
-            @Override
-            public Iterable<Object> call(Tuple2<String, String> stringStringTuple2) throws Exception {
-                return null;
-            }
-        });
+
         
 
         JavaPairRDD<String, Iterable<String>> uidGroups =  msgRecvs.groupBy(new Function<String, String>() {

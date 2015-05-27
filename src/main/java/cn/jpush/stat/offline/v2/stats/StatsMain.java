@@ -7,6 +7,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.tool.Alarm;
 import org.apache.hive.jdbc.HiveStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,22 +23,14 @@ import com.google.common.base.Strings;
 
 /**
  * @author qiuyue
- * 
  */
 public class StatsMain {
 
     private static Logger logger = LoggerFactory.getLogger(StatsMain.class);
 
     public static void main(String[] args) throws Exception {
-    	// TODO Auto-generated method stub
-    	//right args format
-    	//args[0] = reRun[false,true]
-    	//args[1] = evnFlag[test,product]
-    	//args[2] = Excute Time[BeiJing]
-    	//args[3] = indexName 
-    	//args[4] = frequency[hour,day,month]
-        //args[5] = tableFlag[inner,external]
-        
+        // TODO Auto-generated method stub
+        //right args format
 
         long startTime = System.currentTimeMillis();
         String reRun = args[0];
@@ -47,14 +40,13 @@ public class StatsMain {
         String frequency = args[4];
         String tableFlag = args[5];
 
-
         StatsMain.statsAndSave(envFlag, indexName, statsDate, frequency, tableFlag);
 
         logger.info(" statsMain.main: all  time =" + (System.currentTimeMillis() - startTime));
     }
 
     public static void statsAndSave(String envFlag, String indexName, String statsDate,
-            String frequency, String tableFlag) throws Exception {
+                                    String frequency, String tableFlag) throws Exception {
         try {
             logger.info("statsMain.statsAndSave:indexName=" + indexName + ";statsDate=" + statsDate
                     + ";tableType=" + frequency);
@@ -94,14 +86,14 @@ public class StatsMain {
                 // user_online,apns_report, http_report, msg_recv
                 if ("hour".equals(frequency)) {
                     statsSql = SystemConfig.getProperty(indexName + ".v2.stats.hour.sql");
-                } 
+                }
                 if ("day".equals(frequency)) {
-                    statsSql =  SystemConfig.getProperty(indexName + ".v2.stats.day.sql");
-                                    
+                    statsSql = SystemConfig.getProperty(indexName + ".v2.stats.day.sql");
+
                 }
                 statsSql = MessageFormat.format(statsSql, statsDateArray);
             }
-            
+
             long nowTime = System.currentTimeMillis();
 
             ResultSet resultSet = null;
@@ -109,9 +101,9 @@ public class StatsMain {
             HiveStatement hiveStatement = (HiveStatement) connHive.createStatement();
 
             logger.info("statsMain.statsAndSave:statsSql=" + statsSql);
-            
-            if(!Strings.isNullOrEmpty(statsSql)){
-                
+
+            if (!Strings.isNullOrEmpty(statsSql)) {
+
                 resultSet = hiveStatement.executeQuery(statsSql);
             }
 
@@ -120,8 +112,8 @@ public class StatsMain {
 
             nowTime = System.currentTimeMillis();
 
-            StatVo statVo =null;
-            List<StatVo> list = new ArrayList<StatVo>() ;
+            StatVo statVo = null;
+            List<StatVo> list = new ArrayList<StatVo>();
             while (resultSet.next()) {
                 String appKey = resultSet.getString("appkey");
                 String platform = resultSet.getString("platform");
@@ -135,52 +127,41 @@ public class StatsMain {
             }
 
             String newIndexName = indexName;
-            
-            if("user_online".equals(indexName))
-            {
-            	newIndexName = "pushonlineuser";
-            }else if ("user_incr".equals(indexName))
-            {
-            	newIndexName = "pushnewuser";
-            }else if ("user_active".equals(indexName))
-            {
-            	newIndexName = "pushactiveuser";
-            }else if ("user_duration".equals(indexName))
-            {
-            	newIndexName = "pushusedtime";
-            }else if ("user_startup".equals(indexName))
-            {
-            	newIndexName = "pushopentimes";
-            }else if ("pushapns".equals(indexName)){
+
+            if ("user_online".equals(indexName)) {
+                newIndexName = "pushonlineuser";
+            } else if ("user_incr".equals(indexName)) {
+                newIndexName = "pushnewuser";
+            } else if ("user_active".equals(indexName)) {
+                newIndexName = "pushactiveuser";
+            } else if ("user_duration".equals(indexName)) {
+                newIndexName = "pushusedtime";
+            } else if ("user_startup".equals(indexName)) {
+                newIndexName = "pushopentimes";
+            } else if ("pushapns".equals(indexName)) {
                 newIndexName = "pushdelivery";
-            }else if ("pushmsgrecv".equals(indexName)){
+            } else if ("pushmsgrecv".equals(indexName)) {
                 newIndexName = "pushdelivery";
             }
-            
-            try
-            {
-            	if("hour".equals(frequency))
-                {
-                	SaveStatsData.saveHourKPI("off", newIndexName, Integer.valueOf(statsDay), Integer.valueOf(statsDate.substring(8)),  list, true);
-                }else if ("day".equals(frequency))
-                {
-                	SaveStatsData.saveKPI("off", "d", newIndexName, Integer.valueOf(statsDay), list, true);
-                }else if ("month".equals(frequency))
-                {
-                	SaveStatsData.saveKPI("off", "m", newIndexName, Integer.valueOf(statsMonth), list, true);
+
+            try {
+                if ("hour".equals(frequency)) {
+                    SaveStatsData.saveHourKPI("off", newIndexName, Integer.valueOf(statsDay), Integer.valueOf(statsDate.substring(8)), list, true);
+                } else if ("day".equals(frequency)) {
+                    SaveStatsData.saveKPI("off", "d", newIndexName, Integer.valueOf(statsDay), list, true);
+                } else if ("month".equals(frequency)) {
+                    SaveStatsData.saveKPI("off", "m", newIndexName, Integer.valueOf(statsMonth), list, true);
                 }
-            } catch (Exception e)
-            {
-            	logger.error("statsMain.savenew db:error = " + e.getMessage());
+            } catch (Exception e) {
+                logger.error("statsMain.savenew db:error = " + e.getMessage());
             }
-            
+
             logger.info("statsMain.statsAndSave:all time =" + (System.currentTimeMillis() - startTime));
         } catch (Exception e) {
             logger.error("statsMain.statsAndSave:error = " + e.getMessage());
+            Alarm.alarm(63, "offline active stats and incr stats:error =" + e.getMessage());
             e.printStackTrace();
             throw new Exception(e);
         }
     }
-
-
 }
