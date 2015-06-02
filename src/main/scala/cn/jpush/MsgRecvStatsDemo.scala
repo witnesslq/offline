@@ -9,13 +9,10 @@ import org.apache.spark.SparkContext
 class MsgRecvStatsDemo {
 
 
-
-
     def main(args: Array[String]) {
         val sc = new SparkContext()
 
         val sqlContext = new org.apache.spark.sql.SQLContext(sc)
-        // this is used to implicitly convert an RDD to a DataFrame.
 
 
         val msgRecvLines = sc.textFile(args(0))

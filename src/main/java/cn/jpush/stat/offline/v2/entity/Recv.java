@@ -46,15 +46,23 @@ public class Recv {
      */
     public static final String UID = "uid";
     public static final String ITIME = "itime";
-    
+
+    /**
+     * fields specified by IM
+     */
+    public static final String JUID = "juid";
+    public static final String TARGET = "target";
+    public static final String TARGET_COUNT = "target_count";
+    public static final String MSG_TYPE_CODE = "msg_type";
+
+    public static final String CONTENT = "content";
     /*
      * fields specified by msgRecv
      */
     public static final String NUMBER_RECORDS_RECV = "total";
     public static final String RECORDS_RECV = "rows";
     public static final String MSGID_RECV = "mid";
-    
-    
+
     /*
      * fields specified by APNS or MPNS
      */

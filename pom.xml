@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.jpush.stats</groupId>
     <artifactId>offline</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -13,7 +13,7 @@
         <!--<hbase.version>1.0.1</hbase.version>-->
         <junit.version>4.11</junit.version>
         <es.version>1.4.2</es.version>
-        <spark.version>1.2.0</spark.version>
+        <spark.version>1.3.1</spark.version>
         <scala.version>2.10</scala.version>
     </properties>
 
@@ -253,6 +253,7 @@
             <version>${spark.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-sql_${scala.version}</artifactId>
