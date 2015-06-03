@@ -36,9 +36,6 @@ public class StatsDayGeneralReporter {
         String statsStartDate = args[0]; // yyyyMMdd
         String statsEndDate = args[1];
 
-        String indexName = args[2];
-        String frequency = args[3];
-
         StatsDBQueryClient offlineClient = new StatsDBQueryClient(SystemConfig.getProperty(OFFLINE_HOST),
                 SystemConfig.getIntProperty(OFFLINE_PORT));
 
