@@ -164,7 +164,7 @@ public class StatsDayGeneralReporter {
                 normal = Math.abs(off - on ) < 50 * 10000;
                 break;
             case ONLINE_USER:
-                normal = Math.abs(off - on) < 10 * 1000;
+                normal = Math.abs(off - on) < 10 * 10000;
                 break;
             default:
                 break;
