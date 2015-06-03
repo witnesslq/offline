@@ -137,10 +137,10 @@ public class StatsDayGeneralReporter {
         if(normal){
             description.append("统计正常");
         }else {
-            description.append("统计异常，请检查！！");
+            description.append("统计异常，请检查!!");
         }
 
-        Alarm.alarm(64, String.format("%s 今日统计报表 \n %s \n 统计",
+        Alarm.alarm(64, String.format("%s 今日统计报表 \n %s",
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), description.toString()));
     }
 
