@@ -31,6 +31,21 @@ public class StatsDayGeneralReporter {
 
     private static final String PUSH_ACTIVE_USER = "pushactiveuser";
 
+    public enum KPICode{
+        NEW_USER("pushnewuser"), ONLINE_USER("pushonlineuser") , ACTIVE_USER("pushactiveuser");
+
+        private String kpiCodeStr;
+
+        KPICode(String kpiCodeStr) {
+            this.kpiCodeStr = kpiCodeStr;
+        }
+
+        @Override
+        public String toString() {
+            return kpiCodeStr;
+        }
+    }
+
     public static void main(String[] args) {
 
         String statsStartDate = args[0]; // yyyyMMdd
@@ -51,6 +66,10 @@ public class StatsDayGeneralReporter {
 
         int begindate = Integer.parseInt(statsStartDate);
         int enddate = Integer.parseInt(statsEndDate);
+        boolean normal = false;
+        boolean regNormal = false;
+        boolean activeNormal = false;
+        boolean onlineNormal = false;
         try {
             offlineRegGeneralStats = offlineClient.queryDayKPI(PUSH_NEW_USER, begindate,
                     enddate, PLATFORM_ALL);
@@ -66,7 +85,6 @@ public class StatsDayGeneralReporter {
                     enddate, PLATFORM_ALL);
             onlineActGeneralStats = onlineClient.queryDayKPI(PUSH_ACTIVE_USER, begindate,
                     enddate, PLATFORM_ALL);
-
 
         } catch (TException e) {
             try {
@@ -94,6 +112,15 @@ public class StatsDayGeneralReporter {
             }
         }
 
+        regNormal = isNormal(KPICode.NEW_USER, offlineRegGeneralStats.get(begindate),
+                onlineRegGeneralStats.get(begindate));
+        onlineNormal = isNormal(KPICode.ONLINE_USER, offlineOnGeneralStats.get(begindate),
+                onlineOnGeneralStats.get(begindate));
+        activeNormal = isNormal(KPICode.ACTIVE_USER, offlineActGeneralStats.get(begindate),
+                onlineActGeneralStats.get(begindate));
+
+        normal = regNormal && activeNormal && onlineNormal;
+
         // send day report by Alarm
         NumberFormat nf = NumberFormat.getInstance();
         String[] dates = {statsStartDate, statsEndDate};
@@ -107,7 +134,31 @@ public class StatsDayGeneralReporter {
                     + nf.format(offlineOnGeneralStats.get(Integer.parseInt(date))) + "|").append("\n");
         }
 
-        Alarm.alarm(64, String.format("%s 今日统计报表 \n %s",
+        if(normal){
+            description.append("统计正常");
+        }else {
+            description.append("统计异常，请检查！！");
+        }
+
+        Alarm.alarm(64, String.format("%s 今日统计报表 \n %s \n 统计",
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), description.toString()));
+    }
+
+    private static boolean isNormal(KPICode kpiCode, Double off, Double on){
+        boolean normal = false;
+        switch (kpiCode){
+            case NEW_USER:
+                normal = Math.abs(off - on) < 1000;
+                break;
+            case ACTIVE_USER:
+                normal = Math.abs(off - on ) < 50 * 10000;
+                break;
+            case ONLINE_USER:
+                normal = Math.abs(off - on) < 10 * 1000;
+                break;
+            default:
+                break;
+        }
+        return normal;
     }
 }
