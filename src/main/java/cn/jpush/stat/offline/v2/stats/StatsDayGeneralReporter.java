@@ -115,22 +115,13 @@ public class StatsDayGeneralReporter {
         NumberFormat nf = NumberFormat.getInstance();
         regNormal = isNormal(KPICode.NEW_USER, offlineRegGeneralStats.get(begindate),
                 onlineRegGeneralStats.get(begindate));
-        System.out.println(String.format("regNormal=%s off=%s, on=%s", String.valueOf(regNormal),
-                nf.format(offlineRegGeneralStats.get(begindate)),
-                nf.format(onlineRegGeneralStats.get(begindate))));
         onlineNormal = isNormal(KPICode.ONLINE_USER, offlineOnGeneralStats.get(begindate),
                 onlineOnGeneralStats.get(begindate));
-        System.out.println(String.format("onlineNormal=%s off=%s, on=%s",String.valueOf(onlineNormal),
-                nf.format(offlineOnGeneralStats.get(begindate)),
-                nf.format(onlineOnGeneralStats.get(begindate))));
+
         activeNormal = isNormal(KPICode.ACTIVE_USER, offlineActGeneralStats.get(begindate),
                 onlineActGeneralStats.get(begindate));
-        System.out.println(String.format("activeNormal=%s off=%s, on=%s",String.valueOf(activeNormal),
-                nf.format(offlineActGeneralStats.get(begindate)),
-                nf.format(onlineActGeneralStats.get(begindate))));
-
         normal = regNormal && activeNormal && onlineNormal;
-        System.out.println("normal=" + normal);
+        //System.out.println("normal=" + normal);
 
         // send day report by Alarm
         String[] dates = {statsStartDate, statsEndDate};
