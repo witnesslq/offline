@@ -22,11 +22,16 @@ public class StatsDBQueryClient {
 
     private int port;
 
-    private static StatQueryService.Client clientProxy;
+    private StatQueryService.Client clientProxy;
 
     public StatsDBQueryClient(String host, int port) {
+        this(host,port,null);
+    }
+
+    public StatsDBQueryClient(String host, int port, StatQueryService.Client clientProxy) {
         this.host = host;
         this.port = port;
+        this.clientProxy = clientProxy;
     }
 
     private void init() {
