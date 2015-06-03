@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.jpush.tool.Alarm;
@@ -159,7 +161,9 @@ public class StatsMain {
             logger.info("statsMain.statsAndSave:all time =" + (System.currentTimeMillis() - startTime));
         } catch (Exception e) {
             logger.error("statsMain.statsAndSave:error = " + e.getMessage());
-            Alarm.alarm(63, "offline active stats and incr stats:error =" + e.getMessage());
+            Alarm.alarm(63, String.format("%s user active or user reg offline stats error = %s" ,
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
+                    e.getMessage()));
             e.printStackTrace();
             throw new Exception(e);
         }
