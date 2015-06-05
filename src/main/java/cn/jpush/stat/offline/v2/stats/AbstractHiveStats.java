@@ -115,7 +115,7 @@ public abstract class AbstractHiveStats {
 
     public abstract String parseHiveStatsHql();
 
-    private static final String  db_key = "stat-mysql";
+    private static final String db_key = "stat-mysql";
 
     public ResultSet stats(String envFlag, String indexName, String statsDate,
                            String frequency, String tableFlag) throws Exception {
@@ -222,44 +222,24 @@ public abstract class AbstractHiveStats {
             statVo.setPlatform(platform);
             statVo.setValue(cnt);
             list.add(statVo);
-
-            try {
-                if (list.size() % SystemConfig.getIntProperty("mysql.commit.size") == 0) {
-                    if ("hour".equals(frequency)) {
-                        SaveStatsData.saveHourKPI("off", kpiCode, Integer.valueOf(statsDate.substring(0, 8)), Integer.valueOf(statsDate.substring(8)), list, generalFlag);
-                    } else if ("day".equals(frequency)) {
-                        SaveStatsData.saveKPI("off", "d", kpiCode, Integer.valueOf(statsDate.substring(0, 8)), list, generalFlag);
-                    } else if ("month".equals(frequency)) {
-                        SaveStatsData.saveKPI("off", "m", kpiCode, Integer.valueOf(statsDate.substring(0, 6)), list, generalFlag);
-                    }
-                    logger.info("AbstractHiveStats.save:commit 5000 cost " + (System.currentTimeMillis() - startTime));
-                    list.clear();
-                }
-            } catch (Exception e) {
-                new Throwable(new SQLException(e));
-            }
         }
 
         try {
-            if (list.size() % SystemConfig.getIntProperty("mysql.commit.size") != 0) {
-                if ("hour".equals(frequency)) {
-                    SaveStatsData.saveHourKPI("off", kpiCode, Integer.valueOf(statsDate.substring(0, 8)), Integer.valueOf(statsDate.substring(8)), list, generalFlag);
-                } else if ("day".equals(frequency)) {
-                    SaveStatsData.saveKPI("off", "d", kpiCode, Integer.valueOf(statsDate.substring(0, 8)), list, generalFlag);
-                } else if ("month".equals(frequency)) {
-                    SaveStatsData.saveKPI("off", "m", kpiCode, Integer.valueOf(statsDate.substring(0, 6)), list, generalFlag);
-                }
-                logger.info(String.format("AbstractHiveStats.save:commit %d cost %d "), list.size(), System.currentTimeMillis() - startTime);
-                list.clear();
+            if ("hour".equals(frequency)) {
+                SaveStatsData.saveHourKPI("off", kpiCode, Integer.valueOf(statsDate.substring(0, 8)), Integer.valueOf(statsDate.substring(8)), list, generalFlag);
+            } else if ("day".equals(frequency)) {
+                SaveStatsData.saveKPI("off", "d", kpiCode, Integer.valueOf(statsDate.substring(0, 8)), list, generalFlag);
+            } else if ("month".equals(frequency)) {
+                SaveStatsData.saveKPI("off", "m", kpiCode, Integer.valueOf(statsDate.substring(0, 6)), list, generalFlag);
             }
+            logger.info(String.format("AbstractHiveStats.save:commit %d cost %d "), list.size(), System.currentTimeMillis() - startTime);
+            list.clear();
 
         } catch (Exception e) {
             new Throwable(new SQLException(e));
         }
 
-
-
-        logger.info("AbstractHiveStats.save:all time =" + (System.currentTimeMillis() - startTime) + "and save counts = " + total);
+        logger.info("AbstractHiveStats.save:all time =" + (System.currentTimeMillis() - startTime) + " and save counts = " + total);
         clearHiveConnResources();
         list.clear();
     }

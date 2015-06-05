@@ -160,11 +160,11 @@ public class StatsMain {
 
             logger.info("statsMain.statsAndSave:all time =" + (System.currentTimeMillis() - startTime));
         } catch (Exception e) {
-            logger.error("statsMain.statsAndSave:error = " + e.getMessage());
             Alarm.alarm(63, String.format("%s user active or user reg offline stats error = %s" ,
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                     e.getMessage()));
             e.printStackTrace();
+            logger.error("statsMain.statsAndSave:error = " + e.getMessage());
             throw new Exception(e);
         }
     }
