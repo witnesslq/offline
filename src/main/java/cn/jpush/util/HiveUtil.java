@@ -31,7 +31,7 @@ public class HiveUtil {
 		catch(Exception e)
     	{
     		logger.error("HiveUtil.executeQuery:error = "+ e.getMessage());
-			Alarm.alarm(63, String.format("%s HiveUtil.executeQuery:error = %s" ,
+			Alarm.alarm(64, String.format("%s HiveUtil.executeQuery:error = %s" ,
 					new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
 					e.getMessage()));
 		}finally{
@@ -53,7 +53,7 @@ public class HiveUtil {
     	}catch(Exception e)
     	{
     		logger.error("HiveUtil.executeUpdate:error = "+ e.getMessage());
-			Alarm.alarm(63, String.format("%s HiveUtil.executeUpdate:error = %s" ,
+			Alarm.alarm(64, String.format("%s HiveUtil.executeUpdate:error = %s" ,
 					new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
 					e.getMessage()));
     	}finally{
@@ -74,7 +74,7 @@ public class HiveUtil {
     	}catch(Exception e)
     	{
     		logger.error("HiveUtil.execute:error = "+ e.getMessage());
-			Alarm.alarm(63, String.format("%s HiveUtil.execute:error = %s" ,
+			Alarm.alarm(64, String.format("%s HiveUtil.execute:error = %s" ,
 					new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
 					e.getMessage()));
 			e.printStackTrace();

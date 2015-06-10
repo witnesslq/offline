@@ -160,7 +160,7 @@ public class StatsMain {
 
             logger.info("statsMain.statsAndSave:all time =" + (System.currentTimeMillis() - startTime));
         } catch (Exception e) {
-            Alarm.alarm(63, String.format("%s user active or user reg offline stats error = %s" ,
+            Alarm.alarm(64, String.format("%s user active or user reg offline stats error = %s" ,
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                     e.getMessage()));
             e.printStackTrace();
