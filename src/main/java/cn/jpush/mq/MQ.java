@@ -102,7 +102,6 @@ public class MQ {
 					chan.getConnection()));
 		} catch (IOException e) {
 			LOG.error("fail to create consumer");
-			Alarm.alarm(15,"fail to create rabbit mq consumer");
 		}
 		return consumer;
 	}
