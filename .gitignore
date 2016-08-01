@@ -1,0 +1,10 @@
+/target/
+*/logs/
+*/test/
+offline/.classpath
+offline/.gitignore.swp
+
+.*project
+*.classpath
+.settings
+*.DS_Store
