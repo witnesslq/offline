@@ -20,7 +20,6 @@ package cn.jpush.util.producer;
 import cn.jpush.stat.offline.v2.entity.CrashLogAvro;
 import cn.jpush.util.SystemConfig;
 
-import java.io.File;
 import java.util.Properties;
 
 public class FakeCrashLogProducer {
@@ -36,7 +35,7 @@ public class FakeCrashLogProducer {
         props.put("key.serializer.class", "kafka.serializer.StringEncoder");
         props.put("producer.type", "sync");
 
-        Baseproducer demo = new Baseproducer(props);
+        BaseProducer demo = new BaseProducer(props);
 
         CrashLogGen generator = new CrashLogGen();
         //File file = new File("/Users/fengwu/work/jpush/project/jpush-stats/offline/src/main/resources/avro/crashlog.json");

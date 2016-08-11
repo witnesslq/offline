@@ -33,11 +33,11 @@ import org.apache.commons.io.IOUtils;
 import java.io.*;
 import java.util.Properties;
 
-public class Baseproducer {
+public class BaseProducer {
 
     private final Producer<String, byte[]> kafkaProducer;
 
-    public Baseproducer(Properties props) {
+    public BaseProducer(Properties props) {
 
         kafkaProducer = new Producer<String, byte[]>(new ProducerConfig(props));
     }

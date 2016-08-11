@@ -37,7 +37,7 @@ public class DemoProducer {
         props.put("key.serializer.class", "kafka.serializer.StringEncoder");
         props.put("producer.type", "sync");
 
-        Baseproducer demo = new Baseproducer(props);
+        BaseProducer demo = new BaseProducer(props);
 
         Schema schema = new Schema.Parser().parse("{\n" +
                 "\t\"type\":\"record\",\n" +

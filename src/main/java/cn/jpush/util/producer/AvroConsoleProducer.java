@@ -71,7 +71,6 @@ public class AvroConsoleProducer {
         Properties props = new Properties();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-
         String topic = args[0];
         props.put("metadata.broker.list", args[1]);
         props.put("request.required.acks", "-1");

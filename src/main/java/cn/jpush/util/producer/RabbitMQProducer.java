@@ -2,11 +2,9 @@ package cn.jpush.util.producer;
 
 import cn.jpush.mq.MQ;
 import cn.jpush.mq.MQFactory;
-import cn.jpush.stat.offline.v2.entity.CrashLogAvro;
 import cn.jpush.util.SystemConfig;
 import com.rabbitmq.client.Address;
 import com.rabbitmq.client.QueueingConsumer;
-import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.log4j.Logger;
 
 import java.util.Properties;
@@ -34,8 +32,7 @@ public class RabbitMQProducer {
         props.put("key.serializer.class", "kafka.serializer.StringEncoder");
         props.put("producer.type", "sync");
         QueueingConsumer.Delivery delivery = null;
-        Baseproducer message = new Baseproducer(props);
-
+        BaseProducer message = new BaseProducer(props);
 
         while (true){
             try {
@@ -47,7 +44,6 @@ public class RabbitMQProducer {
             } catch (Exception e) {
                 LOG.error(e);
                 consumer = mq.createConsumer(add);
-                continue;
             }
         }
         //Baseproducer.writeJsonFile(file, crashLogAvros);
